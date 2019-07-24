@@ -16,8 +16,8 @@ mysql:Client CodeCoverageDB = new({
         dbOptions: { useSSL: false }
     });
 
-function retrieveAllProductNames() returns (json) {
-    var productNames = CodeCoverageDB->select("SELECT DISTINCT p.PRODUCT_ID, p.PRODUCT_NAME FROM "
+function retrieveAllProductNames() returns json {
+    var productNames = CodeCoverageDB->select("SELECT DISTINCT p.PRODUCT_ID, p.PRODUCT_NAME, p.PRODUCT_ABBR FROM "
     + "PRODUCT p, PRODUCT_REPOS r WHERE p.PRODUCT_ID = r.PRODUCT_ID AND "
     + "r.BUILD_URL IS NOT NULL ORDER BY p.PRODUCT_ID", ());
     if (productNames is table< record {}>) {
@@ -33,7 +33,7 @@ function retrieveAllProductNames() returns (json) {
     }
 }
 
-function retrieveCoverageSummary() returns (json) {
+function retrieveCoverageSummary() returns json {
     int productIterator = 0;
     json products = retrieveAllProductNames();
     json coverageSummaryData = [];
@@ -86,7 +86,7 @@ function retrieveCoverageSummary() returns (json) {
 }
 
 
-function retrieveCoverageSummaryByDate(string date) returns (json) {
+function retrieveCoverageSummaryByDate(string date) returns json {
     int productIterator = 0;
     string sumDate = date + "%";
     json products = retrieveAllProductNames();
@@ -125,6 +125,7 @@ function retrieveCoverageSummaryByDate(string date) returns (json) {
                     coverageSummaryDataByDate[productIterator].builds = "";
                 }
                 coverageSummaryDataByDate[productIterator].name = products[productIterator].PRODUCT_NAME;
+                coverageSummaryDataByDate[productIterator].abbr = products[productIterator].PRODUCT_ABBR;
                 coverageSummaryDataByDate[productIterator].daySummary = daySummary;
 
             } else {
@@ -138,10 +139,9 @@ function retrieveCoverageSummaryByDate(string date) returns (json) {
         productIterator = productIterator + 1;
     }
     return coverageSummaryDataByDate;
-
 }
 
-function retrieveLastReportDate() returns (json) {
+function retrieveLastReportDate() returns json {
     var lastReportDate = CodeCoverageDB->select("SELECT DISTINCT CAST(DATE AS DATE) AS date FROM CODE_COVERAGE_SUMMARY "
     + "ORDER BY CAST(DATE AS DATE) DESC", ());
     if (lastReportDate is table< record {}>) {
