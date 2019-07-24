@@ -25,7 +25,7 @@ service CodeCoverageData on httpListener {
         //if (products is json) {
         // Invoke retrieveData function to retrieve data from mysql database
         var codeCoverageData = retrieveCoverageSummary();
-            // Send the response back to the client with the code coverage data
+        // Send the response back to the client with the code coverage data
         response.setPayload(untaint codeCoverageData);
         var respondRet = httpCaller->respond(response);
         if (respondRet is error) {
@@ -43,7 +43,7 @@ service CodeCoverageData on httpListener {
         http:Response response = new;
         // Invoke retrieveData function to retrieve data from mysql database
         var codeCoverageDataByDate = retrieveCoverageSummaryByDate(untaint date);
-            // Send the response back to the client with the code coverage data
+        // Send the response back to the client with the code coverage data
         response.setPayload(untaint codeCoverageDataByDate);
         var respondRet = httpCaller->respond(response);
         if (respondRet is error) {
@@ -61,7 +61,7 @@ service CodeCoverageData on httpListener {
         http:Response response = new;
         // Invoke retrieveData function to retrieve data from mysql database
         var last_coverage_report = retrieveLastReportDate();
-            // Send the response back to the client with the code coverage data
+        // Send the response back to the client with the code coverage data
         response.setPayload(untaint last_coverage_report);
         var respondRet = httpCaller->respond(response);
         if (respondRet is error) {
