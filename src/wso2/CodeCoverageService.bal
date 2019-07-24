@@ -22,7 +22,6 @@ service CodeCoverageData on httpListener {
     resource function getCoverageSummary(http:Caller httpCaller, http:Request request) {
         // Initialize an empty http response message
         http:Response response = new;
-        //if (products is json) {
         // Invoke retrieveData function to retrieve data from mysql database
         json codeCoverageData = retrieveCoverageSummary();
         // Send the response back to the client with the code coverage data
