@@ -2,7 +2,7 @@ Code-Coverage-Dashboard - Ballerina backend
 
 This will work as the backend to the Code Coverage Dashboard which retrieve the coverage summary from the database.
 
-- Add ballerina.conf to engineering-mgt/code-coverage-dashboard/backend/backend 
+- Add ballerina.conf to engineering-mgt/code-coverage-dashboard/backend/src
 
   Sample ballerina.conf :
 ```
